@@ -1,17 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { getTrafficEvents } from '../services/getTrafficEvents'
+import DataContext from '../contexts/DataContext'
 
 export function useUpdateData () {
-  const [trafficData, setTrafficData] = useState()
-  const [transitData, setTransitData] = useState()
+  const { trafficData, setTrafficData, transitData, setTransitData } = useContext(DataContext)
 
   const refreshTrafficData = () => {
-    console.log('traffic data')
     getTrafficEvents().then(newTrafficData => setTrafficData(newTrafficData))
   }
 
   const refreshTransitData = () => {
-    console.log('transit data')
   }
 
   useEffect(refreshTrafficData, [])

@@ -2,12 +2,14 @@
 import { useState, useEffect } from 'react'
 import { getOperators } from '../../services/getOperators'
 import { useUpdateData } from '../../hooks/useUpdateData'
+import './styles.css'
 
 export default function SearchBar () {
   const [operators, setOperators] = useState([])
   const [operator, setOperator] = useState('')
   const [transitDataOption, setTransitDataOption] = useState(false)
   const [trafficDataOption, setTrafficDataOption] = useState(false)
+
   const { trafficData, transitData, refreshTrafficData, refreshTransitData } = useUpdateData()
 
   // retreive the operators when the component updates
@@ -33,40 +35,37 @@ export default function SearchBar () {
   const handleUpdateClick = async () => {
     if (trafficDataOption) refreshTrafficData()
     if (transitDataOption) refreshTransitData()
-
-    // trafficData.events.map((trafficEvent) => (
-    //   console.log(trafficEvent.geography.coordinates)
-    // ))
   }
 
   return (
-    <section>
-      <select onChange={handleChangeOperator} value={operator}>
+    <section className='search-bar'>
+      <select className='operators-select' onChange={handleChangeOperator} value={operator}>
         <option disabled>Available operators</option>
         {
-    operators.map((operator) => (
-      <option key={operator.Id}>{operator.Name}</option>
-    ))
-    }
+          operators.map((operator) => (
+            <option key={operator.Id}>{operator.Name}</option>
+          ))
+        }
       </select>
-      <label>
-        <input
-          type='checkbox'
-          checked={transitDataOption}
-          onChange={handleTransitDataOptionChange}
-        />
-        Transit Data
-      </label>
-      <label>
-        <input
-          type='checkbox'
-          checked={trafficDataOption}
-          onChange={handleTrafficDataOptionChange}
-        />
-        Traffic Data
-      </label>
+      <div className='options-container'>
+        <label className='option-item'>
+          <input
+            type='checkbox'
+            checked={transitDataOption}
+            onChange={handleTransitDataOptionChange}
+          />
+          Transit Data
+        </label>
+        <label className='option-item'>
+          <input
+            type='checkbox'
+            checked={trafficDataOption}
+            onChange={handleTrafficDataOptionChange}
+          />
+          Traffic Data
+        </label>
+      </div>
       <button onClick={handleUpdateClick}>Update Search</button>
-
     </section>
   )
 }
