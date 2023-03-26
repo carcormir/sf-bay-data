@@ -1,13 +1,11 @@
-import { useUpdateData } from '../../hooks/useUpdateData'
 import './styles.css'
 
-export default function InfoList () {
-  const { trafficData, transitData, refreshTrafficData, refreshTransitData } = useUpdateData()
+export default function InfoList ({ trafficData }) {
   return (
     trafficData
       ? trafficData.events.map((trafficEvent) => (
         <p className='info-item' key={trafficEvent.Id}>{trafficEvent.headline}</p>
       ))
-      : <p>Loading ...</p>
+      : <p className='info-item'>No data to display</p>
   )
 }

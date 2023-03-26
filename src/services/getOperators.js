@@ -11,4 +11,9 @@ export const getOperators = () => {
     .then(operators => {
       return operators
     })
+    .catch((err) => {
+      console.error(err)
+    // comes here if there is an issue with the response
+    // comes here if they is an issue with the request
+    })
 }
