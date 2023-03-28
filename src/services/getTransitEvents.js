@@ -1,10 +1,11 @@
-import { TRAFFIC_EVENTS_ENDPOINT } from '../constants'
+import { TRANSIT_STOPS_ENDPOINT } from '../constants'
 
-export const getTrafficEvents = () => {
-  return fetch(TRAFFIC_EVENTS_ENDPOINT)
+export const getTransitEvents = ({ operator }) => {
+  const transitUrlWithOperator = `${TRANSIT_STOPS_ENDPOINT}&operator_id=${operator}`
+  return fetch(transitUrlWithOperator)
     .then(res => {
       if (!res.ok) {
-        throw new Error('Error fetching traffic event')
+        throw new Error('Error fetching transit event')
       }
       return res.json()
     })
